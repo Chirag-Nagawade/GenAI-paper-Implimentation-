@@ -18,7 +18,7 @@ An end-to-end, dual-pipeline academic document verification system featuring two
 3. [Plagiarism Detection Pipeline](#plagiarism-detection-pipeline)
 4. [AI Text Detection Pipeline](#ai-text-detection-pipeline)
 5. [Installation & Setup](#installation--setup)
-6. [Quick Start & Execution Modes](#quick-start--execution-modes)
+6. [Quick Start](#quick-start)
 7. [Configuration (.env)](#configuration-env)
 8. [Experimental Benchmarks & Datasets](#experimental-benchmarks--datasets)
 9. [Running Tests](#running-tests)
@@ -34,7 +34,7 @@ PlagiarismAI is built on an **Independent Dual-Pipeline Principle**: the plagiar
 ```
 PlagiarismAI
 │
-├── Streamlit Web UI (app.py) & Headless / Colab Engine (plagiarism_ai_colab.py)
+├── Streamlit Web UI (app.py)
 │
 ├── Module A: Plagiarism Detection Pipeline
 │   ├── Pre-processing: citations.py (Numeric [1] & Author-Year (Smith, 2020) preservation)
@@ -88,7 +88,6 @@ PlagiarismAI
 - **FAISS-Free Local Vector Indexing:** Pre-computes 384-dimensional dense vectors and executes batch cosine distance calculations using pure NumPy operations.
 - **35-Feature Stylometric Engine:** Evaluates vocabulary richness (TTR, Hapax Legomena, Simpson's D), discourse transition density, sentence complexity, and burstiness without raw token count bias.
 - **Zero-Shot Heuristic Safeguard:** Catches novel, out-of-distribution LLM phrasing via an adaptive cascading fusion rule engine.
-- **Full Headless & Colab Support:** A standalone script (`plagiarism_ai_colab.py`) allows zero-setup headless execution on Google Colab or remote Linux environments.
 - **Annotated PDF Reporting:** Generates comprehensive PDF audit reports with highlighted text, source attributions, and metric breakdowns.
 
 ---
@@ -192,24 +191,16 @@ pip install -r requirements.txt
 
 ---
 
-## Quick Start & Execution Modes
+## Quick Start
 
-### Mode 1: Interactive Streamlit Web Application
 ```bash
 # 1. Initialize environment variables
 cp .env.example .env
 
-# 2. Launch Streamlit
+# 2. Launch Streamlit application
 streamlit run app.py
 ```
-The application will launch at `http://localhost:8501`.
-
-### Mode 2: Headless Standalone Script (Google Colab / Server)
-To run scans without a GUI or Streamlit server:
-```bash
-python plagiarism_ai_colab.py
-```
-This script includes integrated keyless academic search, sliding-window chunking, offline tripartite benchmarks, and automatic generation of `plagiarism_audit_report.pdf`.
+The application will launch in your browser at `http://localhost:8501`.
 
 ---
 
@@ -287,7 +278,6 @@ python -m unittest tests.test_tripartite_evaluation -v
 ```
 PlagiarismAI-main/
 ├── app.py                          Main multi-tab Streamlit application
-├── plagiarism_ai_colab.py          Standalone headless / Google Colab script
 ├── validate_real_model.py          Benchmark validation & diagnostic runner
 ├── system_architecture.html        Interactive system architecture diagram
 ├── requirements.txt                Python package dependencies
