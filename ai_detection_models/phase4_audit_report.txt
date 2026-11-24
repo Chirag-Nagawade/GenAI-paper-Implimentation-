@@ -1,0 +1,26 @@
+Phase 4.1 Audit Report
+
+Confusion matrices (validation) per experiment:
+  Exp 1: TN=911, FP=156, FN=241, TP=1279
+  Exp 2: TN=914, FP=153, FN=197, TP=1323
+  Exp 3: TN=984, FP=83, FN=113, TP=1407
+  Exp 4: TN=874, FP=193, FN=164, TP=1356
+  Exp 5: TN=976, FP=91, FN=138, TP=1382
+  Exp 6: TN=1021, FP=46, FN=84, TP=1436
+
+Verification of expected counts (TN+FP=1067, FN+TP=1520, total=2587):
+  Exp 1: tn+fp=True, fn+tp=True, total=True
+  Exp 2: tn+fp=True, fn+tp=True, total=True
+  Exp 3: tn+fp=True, fn+tp=True, total=True
+  Exp 4: tn+fp=True, fn+tp=True, total=True
+  Exp 5: tn+fp=True, fn+tp=True, total=True
+  Exp 6: tn+fp=True, fn+tp=True, total=True
+
+Metric mismatches between stored CSV and recalculated values:
+  None
+
+Best model verification (should match Experiment 3):
+  Predictions identical: False
+  Scaler expects None features (should be 392)
+
+Audit completed.

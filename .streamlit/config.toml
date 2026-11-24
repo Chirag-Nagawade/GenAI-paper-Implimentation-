@@ -1,0 +1,11 @@
+[server]
+# Disable the file watcher for heavy libraries that trigger spurious import errors
+# (e.g. transformers trying to import torchvision which is not installed)
+fileWatcherType = "none"
+
+[browser]
+gatherUsageStats = false
+
+[runner]
+# Suppress noisy module-inspection warnings from transformers / HuggingFace
+magicEnabled = true

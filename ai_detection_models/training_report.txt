@@ -1,0 +1,50 @@
+HC3 AI‑Detection Model Training – Phase 4 Report
+
+Date/time: 
+Training samples: 12050
+Validation samples: 2587
+
+Experiment results (validation metrics):
+  [1] LOGREG   – MiniLM embeddings (384)
+       Accuracy: 0.8465, Macro‑F1: 0.8434, AI‑F1: 0.8657
+       AI Precision/Recall: 0.8913/0.8414
+       Human Precision/Recall: 0.7908/0.8538
+       Confusion (TN,FP,FN,TP): 911, 156, 241, 1279
+
+  [2] LOGREG   – Stylometric (8)
+       Accuracy: 0.8647, Macro‑F1: 0.8612, AI‑F1: 0.8832
+       AI Precision/Recall: 0.8963/0.8704
+       Human Precision/Recall: 0.8227/0.8566
+       Confusion (TN,FP,FN,TP): 914, 153, 197, 1323
+
+  [3] LOGREG   – Combined (392)
+       Accuracy: 0.9242, Macro‑F1: 0.9222, AI‑F1: 0.9349
+       AI Precision/Recall: 0.9443/0.9257
+       Human Precision/Recall: 0.8970/0.9222
+       Confusion (TN,FP,FN,TP): 984, 83, 113, 1407
+
+  [4] XGBOOST  – MiniLM embeddings (384)
+       Accuracy: 0.8620, Macro‑F1: 0.8570, AI‑F1: 0.8837
+       AI Precision/Recall: 0.8754/0.8921
+       Human Precision/Recall: 0.8420/0.8191
+       Confusion (TN,FP,FN,TP): 874, 193, 164, 1356
+
+  [5] XGBOOST  – Stylometric (8)
+       Accuracy: 0.9115, Macro‑F1: 0.9092, AI‑F1: 0.9235
+       AI Precision/Recall: 0.9382/0.9092
+       Human Precision/Recall: 0.8761/0.9147
+       Confusion (TN,FP,FN,TP): 976, 91, 138, 1382
+
+  [6] XGBOOST  – Combined (392)
+       Accuracy: 0.9497, Macro‑F1: 0.9484, AI‑F1: 0.9567
+       AI Precision/Recall: 0.9690/0.9447
+       Human Precision/Recall: 0.9240/0.9569
+       Confusion (TN,FP,FN,TP): 1021, 46, 84, 1436
+
+Best model selected:
+  Experiment ID: 6
+  Type: xgboost
+  Feature set: Combined (392)
+  Metrics: macro_f1=0.9484, precision_ai=0.9690, recall_ai=0.9447
+
+All artifacts saved under ai_detection_models/.

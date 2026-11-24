@@ -1,0 +1,446 @@
+{
+  "experiment_id": "tripartite_1795195579",
+  "evaluated_at": "2026-11-20 22:56:19",
+  "dataset": "Webis-CPC-11",
+  "dataset_fingerprint": "2e243032d08bd694",
+  "partition_metadata": {
+    "random_seed": 42,
+    "total_records": 500,
+    "total_groups": 481,
+    "multi_record_groups_count": 18,
+    "train": {
+      "record_count": 349,
+      "group_count": 336,
+      "positives": 181,
+      "negatives": 168,
+      "positive_ratio": 0.5186,
+      "negative_ratio": 0.4814
+    },
+    "dev": {
+      "record_count": 75,
+      "group_count": 72,
+      "positives": 39,
+      "negatives": 36,
+      "positive_ratio": 0.52,
+      "negative_ratio": 0.48
+    },
+    "test": {
+      "record_count": 76,
+      "group_count": 73,
+      "positives": 39,
+      "negatives": 37,
+      "positive_ratio": 0.5132,
+      "negative_ratio": 0.4868
+    },
+    "group_disjointness_verified": true,
+    "group_overlap": {
+      "train_dev": 0,
+      "train_test": 0,
+      "dev_test": 0
+    },
+    "count_deviation_explanation": "Because groups form indivisible clusters (some containing 2 or 3 records), partitioning group counts (70%/15%/15% of 481 groups = 336 / 72 / 73 groups) naturally yields discrete record counts (e.g. 349 / 75 / 76 records in 500-sample). Multi-record groups cannot be split across partitions without causing data leakage."
+  },
+  "tripartite_sample_counts": {
+    "genuine_paraphrasing": 87,
+    "ambiguous_review": 228,
+    "exact_copying": 99,
+    "unrelated_text": 86
+  },
+  "test_sample_counts": {
+    "exact_copying": 16,
+    "genuine_paraphrasing": 13,
+    "unrelated_text": 17,
+    "ambiguous_review": 30
+  },
+  "models": {
+    "exp1_minilm": {
+      "model_name": "MiniLM Baseline",
+      "task1_exact_copying": {
+        "accuracy": 0.8182,
+        "precision": 0.7273,
+        "recall": 1.0,
+        "f1_score": 0.8421,
+        "raw_roc_auc": 0.9743,
+        "pr_auc": 0.9772,
+        "false_positive_rate": 0.3529,
+        "false_discovery_rate": 0.2727,
+        "decision_threshold": 0.35,
+        "confusion_matrix": {
+          "TN": 11,
+          "FP": 6,
+          "FN": 0,
+          "TP": 16
+        },
+        "sample_size": 33,
+        "positives": 16,
+        "negatives": 17
+      },
+      "task2_genuine_paraphrase": {
+        "accuracy": 0.8,
+        "precision": 0.6842,
+        "recall": 1.0,
+        "f1_score": 0.8125,
+        "raw_roc_auc": 0.8009,
+        "pr_auc": 0.5938,
+        "false_positive_rate": 0.3529,
+        "false_discovery_rate": 0.3158,
+        "decision_threshold": 0.35,
+        "confusion_matrix": {
+          "TN": 11,
+          "FP": 6,
+          "FN": 0,
+          "TP": 13
+        },
+        "sample_size": 30,
+        "positives": 13,
+        "negatives": 17
+      },
+      "task3_unrelated_rejection": {
+        "accuracy": 0.8696,
+        "precision": 0.8286,
+        "recall": 1.0,
+        "f1_score": 0.9062,
+        "raw_roc_auc": 0.8966,
+        "pr_auc": 0.9309,
+        "false_positive_rate": 0.3529,
+        "false_discovery_rate": 0.1714,
+        "decision_threshold": 0.35,
+        "confusion_matrix": {
+          "TN": 11,
+          "FP": 6,
+          "FN": 0,
+          "TP": 29
+        },
+        "sample_size": 46,
+        "positives": 29,
+        "negatives": 17
+      },
+      "category_score_stats": {
+        "exact_copying": {
+          "count": 16,
+          "mean_score": 0.979,
+          "median_score": 1.0,
+          "std_score": 0.0622,
+          "min_score": 0.7436,
+          "max_score": 1.0
+        },
+        "genuine_paraphrasing": {
+          "count": 13,
+          "mean_score": 0.8787,
+          "median_score": 0.9058,
+          "std_score": 0.0647,
+          "min_score": 0.7318,
+          "max_score": 0.9653
+        },
+        "unrelated_text": {
+          "count": 17,
+          "mean_score": 0.3386,
+          "median_score": 0.1003,
+          "std_score": 0.3872,
+          "min_score": 0.0,
+          "max_score": 0.9809
+        },
+        "ambiguous_review": {
+          "count": 30,
+          "mean_score": 0.8033,
+          "median_score": 0.8226,
+          "std_score": 0.1636,
+          "min_score": 0.2907,
+          "max_score": 0.9845
+        }
+      }
+    },
+    "exp2_tfidf": {
+      "model_name": "TF-IDF Baseline",
+      "task1_exact_copying": {
+        "accuracy": 0.8485,
+        "precision": 0.7619,
+        "recall": 1.0,
+        "f1_score": 0.8649,
+        "raw_roc_auc": 0.9926,
+        "pr_auc": 0.9922,
+        "false_positive_rate": 0.2941,
+        "false_discovery_rate": 0.2381,
+        "decision_threshold": 0.35,
+        "confusion_matrix": {
+          "TN": 12,
+          "FP": 5,
+          "FN": 0,
+          "TP": 16
+        },
+        "sample_size": 33,
+        "positives": 16,
+        "negatives": 17
+      },
+      "task2_genuine_paraphrase": {
+        "accuracy": 0.8333,
+        "precision": 0.7222,
+        "recall": 1.0,
+        "f1_score": 0.8387,
+        "raw_roc_auc": 0.8552,
+        "pr_auc": 0.7225,
+        "false_positive_rate": 0.2941,
+        "false_discovery_rate": 0.2778,
+        "decision_threshold": 0.35,
+        "confusion_matrix": {
+          "TN": 12,
+          "FP": 5,
+          "FN": 0,
+          "TP": 13
+        },
+        "sample_size": 30,
+        "positives": 13,
+        "negatives": 17
+      },
+      "task3_unrelated_rejection": {
+        "accuracy": 0.8913,
+        "precision": 0.8529,
+        "recall": 1.0,
+        "f1_score": 0.9206,
+        "raw_roc_auc": 0.931,
+        "pr_auc": 0.954,
+        "false_positive_rate": 0.2941,
+        "false_discovery_rate": 0.1471,
+        "decision_threshold": 0.35,
+        "confusion_matrix": {
+          "TN": 12,
+          "FP": 5,
+          "FN": 0,
+          "TP": 29
+        },
+        "sample_size": 46,
+        "positives": 29,
+        "negatives": 17
+      },
+      "category_score_stats": {
+        "exact_copying": {
+          "count": 16,
+          "mean_score": 0.9951,
+          "median_score": 1.0,
+          "std_score": 0.0088,
+          "min_score": 0.9746,
+          "max_score": 1.0
+        },
+        "genuine_paraphrasing": {
+          "count": 13,
+          "mean_score": 0.7444,
+          "median_score": 0.7114,
+          "std_score": 0.1145,
+          "min_score": 0.5683,
+          "max_score": 0.9846
+        },
+        "unrelated_text": {
+          "count": 17,
+          "mean_score": 0.2401,
+          "median_score": 0.0,
+          "std_score": 0.3387,
+          "min_score": 0.0,
+          "max_score": 0.9819
+        },
+        "ambiguous_review": {
+          "count": 30,
+          "mean_score": 0.6078,
+          "median_score": 0.6585,
+          "std_score": 0.232,
+          "min_score": 0.0082,
+          "max_score": 0.9672
+        }
+      }
+    },
+    "exp3_hybrid": {
+      "model_name": "Hybrid TF-IDF+MiniLM (\u03b1=0.70)",
+      "task1_exact_copying": {
+        "accuracy": 0.8182,
+        "precision": 0.7273,
+        "recall": 1.0,
+        "f1_score": 0.8421,
+        "raw_roc_auc": 0.9816,
+        "pr_auc": 0.9831,
+        "false_positive_rate": 0.3529,
+        "false_discovery_rate": 0.2727,
+        "decision_threshold": 0.35,
+        "confusion_matrix": {
+          "TN": 11,
+          "FP": 6,
+          "FN": 0,
+          "TP": 16
+        },
+        "sample_size": 33,
+        "positives": 16,
+        "negatives": 17
+      },
+      "task2_genuine_paraphrase": {
+        "accuracy": 0.8,
+        "precision": 0.6842,
+        "recall": 1.0,
+        "f1_score": 0.8125,
+        "raw_roc_auc": 0.8326,
+        "pr_auc": 0.6876,
+        "false_positive_rate": 0.3529,
+        "false_discovery_rate": 0.3158,
+        "decision_threshold": 0.35,
+        "confusion_matrix": {
+          "TN": 11,
+          "FP": 6,
+          "FN": 0,
+          "TP": 13
+        },
+        "sample_size": 30,
+        "positives": 13,
+        "negatives": 17
+      },
+      "task3_unrelated_rejection": {
+        "accuracy": 0.8696,
+        "precision": 0.8286,
+        "recall": 1.0,
+        "f1_score": 0.9062,
+        "raw_roc_auc": 0.9148,
+        "pr_auc": 0.9437,
+        "false_positive_rate": 0.3529,
+        "false_discovery_rate": 0.1714,
+        "decision_threshold": 0.35,
+        "confusion_matrix": {
+          "TN": 11,
+          "FP": 6,
+          "FN": 0,
+          "TP": 29
+        },
+        "sample_size": 46,
+        "positives": 29,
+        "negatives": 17
+      },
+      "category_score_stats": {
+        "exact_copying": {
+          "count": 16,
+          "mean_score": 0.9838,
+          "median_score": 1.0,
+          "std_score": 0.0452,
+          "min_score": 0.8136,
+          "max_score": 1.0
+        },
+        "genuine_paraphrasing": {
+          "count": 13,
+          "mean_score": 0.8384,
+          "median_score": 0.8349,
+          "std_score": 0.0657,
+          "min_score": 0.7356,
+          "max_score": 0.9711
+        },
+        "unrelated_text": {
+          "count": 17,
+          "mean_score": 0.3091,
+          "median_score": 0.0702,
+          "std_score": 0.37,
+          "min_score": 0.0,
+          "max_score": 0.9639
+        },
+        "ambiguous_review": {
+          "count": 30,
+          "mean_score": 0.7447,
+          "median_score": 0.7753,
+          "std_score": 0.1747,
+          "min_score": 0.206,
+          "max_score": 0.9688
+        }
+      }
+    },
+    "exp4_hybrid_gate": {
+      "model_name": "Hybrid + Lexical Gate",
+      "task1_exact_copying": {
+        "accuracy": 0.8182,
+        "precision": 0.7273,
+        "recall": 1.0,
+        "f1_score": 0.8421,
+        "raw_roc_auc": 0.989,
+        "pr_auc": 0.9888,
+        "false_positive_rate": 0.3529,
+        "false_discovery_rate": 0.2727,
+        "decision_threshold": 0.4,
+        "confusion_matrix": {
+          "TN": 11,
+          "FP": 6,
+          "FN": 0,
+          "TP": 16
+        },
+        "sample_size": 33,
+        "positives": 16,
+        "negatives": 17
+      },
+      "task2_genuine_paraphrase": {
+        "accuracy": 0.8,
+        "precision": 0.6842,
+        "recall": 1.0,
+        "f1_score": 0.8125,
+        "raw_roc_auc": 0.8235,
+        "pr_auc": 0.6778,
+        "false_positive_rate": 0.3529,
+        "false_discovery_rate": 0.3158,
+        "decision_threshold": 0.4,
+        "confusion_matrix": {
+          "TN": 11,
+          "FP": 6,
+          "FN": 0,
+          "TP": 13
+        },
+        "sample_size": 30,
+        "positives": 13,
+        "negatives": 17
+      },
+      "task3_unrelated_rejection": {
+        "accuracy": 0.8696,
+        "precision": 0.8286,
+        "recall": 1.0,
+        "f1_score": 0.9062,
+        "raw_roc_auc": 0.9148,
+        "pr_auc": 0.9439,
+        "false_positive_rate": 0.3529,
+        "false_discovery_rate": 0.1714,
+        "decision_threshold": 0.4,
+        "confusion_matrix": {
+          "TN": 11,
+          "FP": 6,
+          "FN": 0,
+          "TP": 29
+        },
+        "sample_size": 46,
+        "positives": 29,
+        "negatives": 17
+      },
+      "category_score_stats": {
+        "exact_copying": {
+          "count": 16,
+          "mean_score": 0.9817,
+          "median_score": 0.9997,
+          "std_score": 0.0401,
+          "min_score": 0.8411,
+          "max_score": 1.0
+        },
+        "genuine_paraphrasing": {
+          "count": 13,
+          "mean_score": 0.7749,
+          "median_score": 0.7759,
+          "std_score": 0.0738,
+          "min_score": 0.6555,
+          "max_score": 0.9569
+        },
+        "unrelated_text": {
+          "count": 17,
+          "mean_score": 0.2886,
+          "median_score": 0.0562,
+          "std_score": 0.3533,
+          "min_score": 0.0,
+          "max_score": 0.9432
+        },
+        "ambiguous_review": {
+          "count": 30,
+          "mean_score": 0.6689,
+          "median_score": 0.6813,
+          "std_score": 0.1674,
+          "min_score": 0.1675,
+          "max_score": 0.9417
+        }
+      }
+    }
+  },
+  "elapsed_seconds": 35.3
+}

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlagiarismAI – System Architecture</title>
+  <style>
+    /* ==========================================================================
+       Clean Academic Layered Architecture Diagram
+       Standard 16:9 Slide & Paper Presentation Layout
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f1f5f9;
+      color: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    /* Outer 16:9 Presentation Boundary */
+    .architecture-wrapper {
+      width: 1120px;
+      height: 630px;
+      background: #ffffff;
+      border: 1.5px solid #64748b;
+      border-radius: 6px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Diagram Header */
+    .diagram-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid #334155;
+    }
+
+    .diagram-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.2px;
+      text-transform: uppercase;
+    }
+
+    .diagram-subtitle {
+      font-size: 0.75rem;
+      color: #475569;
+      font-weight: 500;
+    }
+
+    /* Layer Stack */
+    .layers-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      margin: 8px 0;
+      gap: 3px;
+    }
+
+    /* Downward Connector Arrow */
+    .down-arrow {
+      text-align: center;
+      font-size: 0.72rem;
+      line-height: 1;
+      color: #64748b;
+      user-select: none;
+      font-weight: bold;
+    }
+
+    /* Horizontal Layer Row */
+    .layer-row {
+      display: flex;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      overflow: hidden;
+      min-height: 58px;
+    }
+
+    /* Narrow Vertical Label Strip on Left */
+    .layer-label {
+      width: 148px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4px 8px;
+      text-align: center;
+      border-right: 1px solid #cbd5e1;
+    }
+
+    .layer-num {
+      font-size: 0.62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #475569;
+    }
+
+    .layer-name {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.2;
+      margin-top: 1px;
+    }
+
+    /* Horizontal Component Boxes Container */
+    .layer-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 6px 10px;
+      gap: 8px;
+    }
+
+    /* Rectangular Component Box */
+    .component-box {
+      background: #ffffff;
+      border: 1px solid #94a3b8;
+      border-radius: 4px;
+      flex: 1;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6px 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #0f172a;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+      transition: border-color 0.15s;
+    }
+
+    /* Layer-Specific Subtle Pastel Themes */
+    .layer-1 { background: #f8fafc; border-color: #cbd5e1; }
+    .layer-1 .layer-label { background: #e2e8f0; border-color: #cbd5e1; }
+
+    .layer-2 { background: #f0f9ff; border-color: #bae6fd; }
+    .layer-2 .layer-label { background: #e0f2fe; border-color: #bae6fd; }
+
+    .layer-3 { background: #fff5f5; border-color: #fecaca; min-height: 82px; }
+    .layer-3 .layer-label { background: #fee2e2; border-color: #fecaca; }
+
+    .layer-4 { background: #f5f3ff; border-color: #ddd6fe; }
+    .layer-4 .layer-label { background: #ede9fe; border-color: #ddd6fe; }
+
+    .layer-5 { background: #ecfdf5; border-color: #a7f3d0; }
+    .layer-5 .layer-label { background: #d1fae5; border-color: #a7f3d0; }
+
+    .layer-6 { background: #fafaf9; border-color: #e7e5e4; min-height: 52px; }
+    .layer-6 .layer-label { background: #f5f5f4; border-color: #e7e5e4; }
+
+    /* Core Processing Layer: 2 Separated Subsystems */
+    .subsystem-group {
+      flex: 1;
+      height: 100%;
+      border: 1px dashed #94a3b8;
+      border-radius: 4px;
+      padding: 4px 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .subsystem-title {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      text-align: center;
+      margin-bottom: 3px;
+      padding-bottom: 2px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .plagiarism-title { color: #b91c1c; }
+    .ai-title { color: #6d28d9; }
+
+    .subsystem-boxes {
+      display: flex;
+      gap: 6px;
+      flex: 1;
+    }
+
+    /* Diagram Footer */
+    .diagram-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 4px;
+      border-top: 1px solid #cbd5e1;
+      font-size: 0.65rem;
+      color: #64748b;
+    }
+
+    /* Print & Slide Export */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .architecture-wrapper { box-shadow: none; border: 1.5px solid #000; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Single 16:9 Presentation Boundary -->
+  <div class="architecture-wrapper">
+
+    <!-- Header Block -->
+    <header class="diagram-header">
+      <div class="diagram-title">PlagiarismAI — System Architecture</div>
+      <div class="diagram-subtitle">Layered Software Architecture Blueprint</div>
+    </header>
+
+    <!-- Six Vertically Stacked Horizontal Layers -->
+    <main class="layers-container">
+
+      <!-- ================================================================
+           LAYER 1: PRESENTATION LAYER
+           ================================================================ -->
+      <section class="layer-row layer-1">
+        <div class="layer-label">
+          <span class="layer-num">Layer 1</span>
+          <span class="layer-name">Presentation Layer</span>
+        </div>
+        <div class="layer-content">
+          <div class="component-box">Plagiarism Detection</div>
+          <div class="component-box">AI Text Detection</div>
+          <div class="component-box">Document Comparison</div>
+          <div class="component-box">Reference Library</div>
+          <div class="component-box">Scan History</div>
+          <div class="component-box">Evaluation &amp; Performance</div>
+        </div>
+      </section>
+
+      <div class="down-arrow">↓</div>
+
+      <!-- ================================================================
+           LAYER 2: APPLICATION LAYER
+           ================================================================ -->
+      <section class="layer-row layer-2">
+        <div class="layer-label">
+          <span class="layer-num">Layer 2</span>
+          <span class="layer-name">Application Layer</span>
+        </div>
+        <div class="layer-content">
+          <div class="component-box">Streamlit Application</div>
+          <div class="component-box">Document Upload</div>
+          <div class="component-box">Text Extraction</div>
+        </div>
+      </section>
+
+      <div class="down-arrow">↓</div>
+
+      <!-- ================================================================
+           LAYER 3: CORE PROCESSING LAYER (TWO SEPARATED SUBSYSTEMS)
+           ================================================================ -->
+      <section class="layer-row layer-3">
+        <div class="layer-label">
+          <span class="layer-num">Layer 3</span>
+          <span class="layer-name">Core Processing Layer</span>
+        </div>
+        <div class="layer-content">
+
+          <!-- Subsystem 1: Plagiarism Detection -->
+          <div class="subsystem-group">
+            <div class="subsystem-title plagiarism-title">Plagiarism Detection</div>
+            <div class="subsystem-boxes">
+              <div class="component-box">Exact Matching</div>
+              <div class="component-box">Near-Exact Matching</div>
+              <div class="component-box">Semantic Similarity</div>
+            </div>
+          </div>
+
+          <!-- Subsystem 2: AI Text Detection -->
+          <div class="subsystem-group">
+            <div class="subsystem-title ai-title">AI Text Detection</div>
+            <div class="subsystem-boxes">
+              <div class="component-box">AI Content Analysis</div>
+              <div class="component-box">Sentence-Level Analysis</div>
+              <div class="component-box">Detection Score and Verdict</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="down-arrow">↓</div>
+
+      <!-- ================================================================
+           LAYER 4: SUPPORTING SERVICES
+           ================================================================ -->
+      <section class="layer-row layer-4">
+        <div class="layer-label">
+          <span class="layer-num">Layer 4</span>
+          <span class="layer-name">Supporting Services</span>
+        </div>
+        <div class="layer-content">
+          <div class="component-box">Text Processing</div>
+          <div class="component-box">Web Search</div>
+          <div class="component-box">Similarity Analysis</div>
+          <div class="component-box">Reference Indexing</div>
+          <div class="component-box">Report Generation</div>
+          <div class="component-box">Evaluation Metrics</div>
+        </div>
+      </section>
+
+      <div class="down-arrow">↓</div>
+
+      <!-- ================================================================
+           LAYER 5: DATA & STORAGE LAYER
+           ================================================================ -->
+      <section class="layer-row layer-5">
+        <div class="layer-label">
+          <span class="layer-num">Layer 5</span>
+          <span class="layer-name">Data &amp; Storage Layer</span>
+        </div>
+        <div class="layer-content">
+          <div class="component-box">Uploaded Documents</div>
+          <div class="component-box">Reference Documents</div>
+          <div class="component-box">Scan History</div>
+          <div class="component-box">Indexed Chunks</div>
+          <div class="component-box">Evaluation Results</div>
+        </div>
+      </section>
+
+      <div class="down-arrow">↓</div>
+
+      <!-- ================================================================
+           LAYER 6: RUNTIME ENVIRONMENT
+           ================================================================ -->
+      <section class="layer-row layer-6">
+        <div class="layer-label">
+          <span class="layer-num">Layer 6</span>
+          <span class="layer-name">Runtime Environment</span>
+        </div>
+        <div class="layer-content">
+          <div class="component-box">Python</div>
+          <div class="component-box">Streamlit</div>
+          <div class="component-box">Operating System</div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer Metadata -->
+    <footer class="diagram-footer">
+      <div>PlagiarismAI Architecture Blueprint • Academic Software Specification</div>
+      <div>Landscape 16:9 Single-Page Format</div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
